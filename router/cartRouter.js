@@ -22,6 +22,7 @@ cartRouter.get("/", async (req, res) => {
 cartRouter.post("/create", async (req, res) => {
 
   const token = req.headers.authorization;
+  console.log(token)
 
   try {
     const decoded = jwt.verify(token, process.env.tokenSecret);
