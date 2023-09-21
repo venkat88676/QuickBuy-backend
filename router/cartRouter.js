@@ -22,10 +22,9 @@ cartRouter.get("/", async (req, res) => {
 cartRouter.post("/create", async (req, res) => {
 
   const token = req.headers.authorization;
-  console.log(token)
-
   try {
     const decoded = jwt.verify(token, process.env.tokenSecret);
+    console.log("decoded",decoded)
     if (decoded) {
       const userId = decoded.userId;
       req.body.quantity = 1; // Set the default quantity to 1
@@ -37,9 +36,11 @@ cartRouter.post("/create", async (req, res) => {
       await cartItem.save();
       res.status(201).json({ msg: "Added to your cart",error:false });
     } else {
+      console.log("err1")
       res.status(401).json({ msg: "Please log in",error:true });
     }
   } catch (err) {
+    console.log("err2",err)
     res.status(500).json({ msg: err.message ,error:true});
   }
 });
