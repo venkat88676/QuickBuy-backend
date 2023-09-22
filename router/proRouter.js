@@ -15,9 +15,10 @@ proRouter.get('/',async(req,res)=>{
     if(search){
         filter.name=new RegExp(search, 'i');
     }
-    let skip=0,limit=9
+    let skip=0,limit
     if(page){
         skip=(page-1)*9;
+        limit=9
        
     }
     try{
