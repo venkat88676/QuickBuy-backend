@@ -105,7 +105,7 @@ userRouter.get('/auth/google/callback',
     let token=jwt.sign({userId:user._id},process.env.tokenSecret)   
  
     res.send(`<script>
-    window.location.href = "http://127.0.0.1:5500/frontend/index.html?userid=${user._id}&token=${token}";
+    window.location.href = "http://127.0.0.1:5500/index.html?userid=${user._id}&token=${token}";
   </script>`);
   });
 
