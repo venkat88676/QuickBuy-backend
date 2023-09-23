@@ -3,7 +3,7 @@ const express=require('express')
 const proRouter=express.Router();
 
 proRouter.get('/',async(req,res)=>{
-    let {category,rating,search,page,setlimit}=req.query
+    let {category,rating,search,page}=req.query
     // console.log("cate",category,rating,page)
     let filter={}
     if(category){
@@ -14,9 +14,6 @@ proRouter.get('/',async(req,res)=>{
     }
     if(search){
         filter.name=new RegExp(search, 'i');
-    }
-    if(setlimit){
-        limit=setlimit
     }
     let skip=0
     if(page){
