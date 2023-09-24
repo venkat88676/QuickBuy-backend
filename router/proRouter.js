@@ -17,8 +17,8 @@ proRouter.get('/',async(req,res)=>{
     }
     let skip=0,limit
     if(page){
-        skip=(page-1)*9;
-        limit=9
+        skip=(page-1)*12;
+        limit=12
        
     }
     try{
