@@ -3,9 +3,10 @@ const express=require('express')
 const proRouter=express.Router();
 
 proRouter.get('/',async(req,res)=>{
-    let {category,rating,search,page}=req.query
+    let {category,rating,search,sortByPrice,page}=req.query
     // console.log("cate",category,rating,page)
     let filter={}
+    let skip=0,limit,sort
     if(category){
         filter.category=category
     }
@@ -15,14 +16,16 @@ proRouter.get('/',async(req,res)=>{
     if(search){
         filter.name=new RegExp(search, 'i');
     }
-    let skip=0,limit
+
+    sortByPrice==="desc"?sort=-1:sort=1
+
     if(page){
         skip=(page-1)*12;
         limit=12
        
     }
     try{
-        let products=await ProModel.find(filter).skip(skip).limit(limit);
+        let products=await ProModel.find(filter).sort({price:sort}).skip(skip).limit(limit);
         res.send(products)
     }catch(err){
         console.log(err)
