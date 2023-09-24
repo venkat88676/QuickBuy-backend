@@ -61,7 +61,19 @@ cartRouter.delete("/delete/:id", async (req, res) => {
   const noteId = req.params.id;
   try {
     await CartModel.findByIdAndDelete({ _id: noteId });
-    res.send({ msg: `Note with id:${noteId} has Deleted` });
+    res.send({ msg: `cart item with id:${noteId} has Deleted` });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+
+cartRouter.delete("/deleteAll/:id", async (req, res) => {
+  const userId = req.params.id;
+  console.log(userId)
+  try {
+    await CartModel.deleteMany({ userId });
+    res.send({ msg: `All Items from cart is Deleted of user:${userId} ` });
   } catch (err) {
     res.send(err);
   }
