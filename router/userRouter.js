@@ -93,7 +93,7 @@ userRouter.get("/getdata", async(req,res)=>{
 
 // ---------google auth--------
 
-const frontendURL=`https://venkat88676.github.io/QuickBuy-frontend/`
+const frontendURL=`https://venkat88676.github.io/QuickBuyF/`
 
 userRouter.get('/auth/google',
   passport.authenticate('google', { scope: ['profile','email'] }));
@@ -107,14 +107,16 @@ userRouter.get('/auth/google/callback',
     let token=jwt.sign({userId:user._id},process.env.tokenSecret)  
 
     const imgSrc='https://cdn.dribbble.com/users/2973561/screenshots/5757826/loading__.gif'
-    const htmlContent = `
-    <a href="${frontendURL}?token=${token}" style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #222222; margin: 0; padding: 0; overflow: scroll;">
-        <img style="width:100%;" src="${imgSrc}" alt="loading..">
-    </a>
+
+    const htmlContent = 
+    `<div style="display: flex; justify-content: center; align-items: center;">
+            <img style="width: 600px;" src="${imgSrc}" alt="loading..">  
+     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                window.location.href = "${frontendURL}?token=${token}";
+                window.location.href = "${frontendURL}?userid=${user._id}?token=${token}";
             }, 5000);
         });
     </script>
