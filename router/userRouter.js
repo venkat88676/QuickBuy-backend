@@ -93,6 +93,8 @@ userRouter.get("/getdata", async(req,res)=>{
 
 // ---------google auth--------
 
+const frontendURL=`https://venkat88676.github.io/QuickBuy-frontend/`
+
 userRouter.get('/auth/google',
   passport.authenticate('google', { scope: ['profile','email'] }));
 
@@ -102,11 +104,23 @@ userRouter.get('/auth/google/callback',
     // Successful authentication, redirect home.
     console.log("userroute",req.user)
     const user=req.user
-    let token=jwt.sign({userId:user._id},process.env.tokenSecret)   
+    let token=jwt.sign({userId:user._id},process.env.tokenSecret)  
+
+    const imgSrc='https://cdn.dribbble.com/users/2973561/screenshots/5757826/loading__.gif'
+    const htmlContent = `
+    <a href="${frontendURL}?token=${token}" style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #222222; margin: 0; padding: 0; overflow: scroll;">
+        <img style="width:100%;" src="${imgSrc}" alt="loading..">
+    </a>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                window.location.href = "${frontendURL}?token=${token}";
+            }, 5000);
+        });
+    </script>
+`; 
  
-    res.send(`<script>
-    window.location.href = "http://127.0.0.1:5500/index.html?userid=${user._id}&token=${token}";
-  </script>`);
+    return res.send(htmlContent);
   });
 
 
