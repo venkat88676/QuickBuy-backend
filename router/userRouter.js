@@ -116,7 +116,7 @@ userRouter.get('/auth/google/callback',
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                window.location.href = "${frontendURL}?userid=${user._id}?token=${token}";
+                window.location.href = "${frontendURL}?userid=${user._id}&token=${token}";
             }, 5000);
         });
     </script>
