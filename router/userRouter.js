@@ -117,7 +117,7 @@ userRouter.get('/auth/google/callback',
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 window.location.href = "${frontendURL}?userid=${user._id}&token=${token}";
-            }, 5000);
+            }, 2000);
         });
     </script>
 `; 
